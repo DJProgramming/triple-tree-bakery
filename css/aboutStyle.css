@@ -1,9 +1,20 @@
-#aboutPhoto {
-    border: 4px solid white;
-    border-radius: 10px;
+#about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-#aboutPhoto:hover {
-    opacity: 1;
+
+#about-photo {
+    border: 4px solid black;
+    border-radius: 50%;
+}
+
+#about-info-container {
+  color: black;
+  text-align: center;
+  /* text-shadow: 0 var(--textShadowDisplacement) var(--textShadowDisplacement) var(--evilDarkGray); */
+  display: block;
+  margin: auto;
 }
 
 #personalInfo {

@@ -1,6 +1,3 @@
-let TRANSITION_TIME = 300;
-let TRANSITION_DELAY = 305;
-
 var filterControl = {
   categories: ['all', 'edibles', 'cartridges'],
   cartridgeCategories: ['all', 'sativa', 'indica', 'hybrid'],
@@ -15,109 +12,6 @@ var createStorePage = function() {
   updateFilter('all');
 }
 
-var updateFilter = function(filter) {
-  console.log("filter:", filter);
-  filterControl.currentFilter = filter;
-  for(let i in filterControl.categories) {
-    $(`#filter-${filterControl.categories[i]}`).css("text-decoration", "none");
-  }
-  $(`#filter-${filter}`).css("text-decoration", "underline");
-
-  filterStore("");
-  if(filter === 'cartridges') {
-    updateStrainFilter("all");
-  }
-}
-
-updateStrainFilter = function(filter) {
-  console.log('strain:', filter);
-  filterControl.strainFilter = filter;
-  for(let i in filterControl.cartridgeCategories) {
-    $(`#filter-strain--${filterControl.cartridgeCategories[i]}`).css("text-decoration", "none");
-  }
-  $(`#filter-strain--${filter}`).css("text-decoration", "underline");
-
-  filterStore("strain");
-}
-
-var filterStore = function(type) {
-  if(type === "") {
-    switch (filterControl.currentFilter) {
-      case "all":
-        $(`.product-category--treat`).fadeOut(TRANSITION_TIME);
-        $(`.product-category--cart`).fadeOut(TRANSITION_TIME);
-        setTimeout(() => {
-          $(`.product-category--treat`).fadeIn(TRANSITION_TIME);
-          $(`.product-category--cart`).fadeIn(TRANSITION_TIME);
-        }, TRANSITION_DELAY);
-        $('#cartrige-category-list').slideUp(TRANSITION_TIME);
-        break;
-      case "edibles":
-        console.log('edibles');
-        $(`.product-category--treat`).fadeOut(TRANSITION_TIME);
-        $(`.product-category--cart`).fadeOut(TRANSITION_TIME);
-        setTimeout(() => {
-          $(`.product-category--treat`).fadeIn(TRANSITION_TIME);
-        }, TRANSITION_DELAY);
-        $('#cartrige-category-list').slideUp(TRANSITION_TIME);
-        break;
-      case "cartridges":
-        $(`.product-category--treat`).fadeOut(TRANSITION_TIME);
-        $(`.product-category--cart`).fadeOut(TRANSITION_TIME);
-        setTimeout(() => {
-          $(`.product-category--cart`).fadeIn(TRANSITION_TIME);
-        }, TRANSITION_DELAY);
-        $('#cartrige-category-list').slideDown(TRANSITION_TIME);
-        break;
-      default:
-        break;
-    }
-  } else {
-    switch (filterControl.strainFilter) {
-      case "all":
-        $(`.strain--sativa`).fadeOut(TRANSITION_TIME);
-        $(`.strain--indica`).fadeOut(TRANSITION_TIME);
-        $(`.strain--hybrid`).fadeOut(TRANSITION_TIME);
-        setTimeout(() => {
-          $(`.strain--sativa`).fadeIn(TRANSITION_TIME);
-          $(`.strain--indica`).fadeIn(TRANSITION_TIME);
-          $(`.strain--hybrid`).fadeIn(TRANSITION_TIME);
-        }, TRANSITION_DELAY);
-        break;
-      case "sativa":
-        $(`.strain--sativa`).fadeOut(TRANSITION_TIME);
-        $(`.strain--indica`).fadeOut(TRANSITION_TIME);
-        $(`.strain--hybrid`).fadeOut(TRANSITION_TIME);
-        setTimeout(() => {
-          $(`.strain--sativa`).fadeIn(TRANSITION_TIME);
-        }, TRANSITION_DELAY);
-        break;
-      case "indica":
-        $(`.strain--sativa`).fadeOut(TRANSITION_TIME);
-        $(`.strain--indica`).fadeOut(TRANSITION_TIME);
-        $(`.strain--hybrid`).fadeOut(TRANSITION_TIME);
-        setTimeout(() => {
-          $(`.strain--indica`).fadeIn(TRANSITION_TIME);
-        }, TRANSITION_DELAY);
-        break;
-      case "hybrid":
-        $(`.strain--sativa`).fadeOut(TRANSITION_TIME);
-        $(`.strain--indica`).fadeOut(TRANSITION_TIME);
-        $(`.strain--hybrid`).fadeOut(TRANSITION_TIME);
-        setTimeout(() => {
-          $(`.strain--hybrid`).fadeIn(TRANSITION_TIME);
-        }, TRANSITION_DELAY);
-        break;
-      default:
-        break;
-    }
-  }
-}
-
-var toggleCartFilter = function() {
-  var cartFilter = $('<ul')
-}
-
 var createProductComponent = function() {
   var $categoriesContainer = $('<div class="row" id="categories-bar">').appendTo($('.store-container'));
   var $categoriesList = $('<ul class="filter-bar" id="categories-list">Filter:</ul>').appendTo($categoriesContainer);
@@ -125,7 +19,6 @@ var createProductComponent = function() {
     var category = i[0].toUpperCase();
     for(var letter = 1; letter < i.length; letter++) { category += i[letter]; }
     $(`<li class="category" id="filter-${i}" onClick="updateFilter(\'${category.toLowerCase()}\')"><b>${category}</b></li>`).appendTo($categoriesList);
-    // $(`#${i}`).on('click', () => { changeContnet(i)})
   }
   var $strainFilter = $('<ul class="filter-bar" id="cartrige-category-list"></ul>').appendTo($('#categories-bar'));
   for(let i of filterControl.cartridgeCategories) {
@@ -140,7 +33,7 @@ var createProductComponent = function() {
     if(product.strain) {
       strain = `strain--${product.strain}`;
     }
-    $productContainer = $(`<div class="product-container product-category--${product.category} ${strain}">`).appendTo($products);
+    $productContainer = $(`<div class="product-container col-4 col-m-6 product-category--${product.category} ${strain}">`).appendTo($products);
     $pic = $(`<img class="product treat" id=${product.name} src=${product.url}>`).appendTo($productContainer);
     $productName = $(`<h2 class="product-name">${product.name}</h2>`).appendTo($productContainer);
     if(product.strain) {
@@ -165,7 +58,8 @@ var createProductComponent = function() {
           }
           $('<input type="hidden" name="currency_code" value="USD">').appendTo($buy);
         }
-        $('<div class="center"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"></div>').appendTo($buy);
+        // $('<div class="center"><input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_cart_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"></div>').appendTo($buy);
+        $('<div class="center"><button class="add-to-cart--button" type="submit">Add to cart</button></div>').appendTo($buy);
         // $('<div class="center"><input class="add-to-cart--button" type="button" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">Add to cart</input></div>').appendTo($buy);
         $('<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">').appendTo($buy);
       }

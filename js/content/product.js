@@ -49,33 +49,37 @@ var productArray = [
   {
     name: "blue dream",
     category: 'cart',
+    paypalProductCode: '9ZSK49DR87QY4',
     strain: 'hybrid',
     strength: '84.7',
-    price: '00.00',
+    price: '60.00',
     url: 'images/product/cart_blue_dream_2.jpg'
   },
   {
     name: "grape ape",
     category: 'cart',
+    paypalProductCode: 'BHLACYTJ2Q3DJ',
     strain: 'indica',
     strength: '87.1',
-    price: '00.00',
+    price: '60.00',
     url: 'images/product/cart_grape_ape.jpg'
   },
   {
     name: "lemon haze",
     category: 'cart',
+    paypalProductCode: '3EU2LPB4MAAAY',
     strain: 'sativa',
     strength: '80.4',
-    price: '00.00',
+    price: '60.00',
     url: 'images/product/cart_lemon_haze.jpg'
   },
   {
     name: "wedding cake",
     category: 'cart',
+    paypalProductCode: 'RFTNVHAWSVDZN',
     strain: 'hybrid',
     strength: '83.5',
-    price: '00.00',
+    price: '60.00',
     url: 'images/product/cart_wedding_cake.jpg'
   }
 ]
